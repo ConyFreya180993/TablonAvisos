@@ -1,0 +1,7 @@
+{
+  "name": "TablonAvisos",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular-standalone"
+}
