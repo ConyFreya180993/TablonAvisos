@@ -1,20 +1,38 @@
+<!-- Encabezado superior de la página -->
 <ion-header [translucent]="true">
-  <ion-toolbar>
+  <ion-toolbar color="primary">
+    <!-- Título que aparece en la barra superior -->
     <ion-title>
-      Blank
+      Tablón "Peor es Nada" ¯\_ (ᵕ—ᴗ—)_/¯
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
+<!-- Contenido principal de la página -->
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Blank</ion-title>
-    </ion-toolbar>
-  </ion-header>
 
-  <div id="container">
-    <strong>Ready to create an app?</strong>
-    <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
-  </div>
+ <!-- Barra de búsqueda -->
+<ion-searchbar
+  placeholder="Buscar aviso (mascota, documentos...)"
+  (ionInput)="buscarAviso($event)"
+  [debounce]="1000">
+</ion-searchbar>
+
+  <!-- Componente hijo que muestra la lista de avisos -->
+  <!-- Recibe el array 'avisos' y emite el evento alEliminarAviso -->
+  <app-lista-avisos 
+    [avisos]="avisos" 
+    (alEliminarAviso)="eliminarAvisoDesdeTablon($event)">
+  </app-lista-avisos>
+
+  <!-- Botón flotante (FAB) para crear un nuevo aviso -->
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button routerLink="/crear-aviso">
+      <!-- Ícono de "add" registrado en home.page.ts -->
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+
 </ion-content>
+
+

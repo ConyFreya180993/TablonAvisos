@@ -1,0 +1,55 @@
+<!-- Encabezado con botón de retroceso -->
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/home"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Nuevo Aviso</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <!-- Formulario reactivo vinculado a avisoForm -->
+  <form [formGroup]="avisoForm" (ngSubmit)="guardar()">
+    
+    <!-- Campo Título con validaciones -->
+    <ion-item lines="full">
+      <ion-label position="stacked">Título del Aviso</ion-label>
+      <ion-input formControlName="titulo" placeholder="Ej: Mascota perdida"></ion-input>
+    </ion-item>
+    <!-- Mensajes de error -->
+    <div class="error-message" *ngIf="avisoForm.get('titulo')?.touched && avisoForm.get('titulo')?.invalid">
+      <small color="danger" *ngIf="avisoForm.get('titulo')?.errors?.['required']">El título es obligatorio.</small>
+      <small color="danger" *ngIf="avisoForm.get('titulo')?.errors?.['minlength']">Mínimo 5 caracteres.</small>
+    </div>
+
+    <!-- Campo Descripción con validaciones -->
+    <ion-item lines="full">
+      <ion-label position="stacked">Descripción detallada</ion-label>
+      <ion-textarea formControlName="descripcion" rows="4" placeholder="Describe la situación..."></ion-textarea>
+    </ion-item>
+    <!-- Mensajes de error -->
+    <div class="error-message" *ngIf="avisoForm.get('descripcion')?.touched && avisoForm.get('descripcion')?.invalid">
+      <small color="danger" *ngIf="avisoForm.get('descripcion')?.errors?.['required']">La descripción es obligatoria.</small>
+      <small color="danger" *ngIf="avisoForm.get('descripcion')?.errors?.['minlength']">Mínimo 20 caracteres.</small>
+    </div>
+
+    <!-- Botón para capturar foto con la cámara -->
+    <div class="ion-text-center ion-margin-top">
+      <ion-button (click)="tomarFoto()" color="secondary" fill="outline">
+        <ion-icon slot="start" name="camera"></ion-icon>
+        Capturar Evidencia
+      </ion-button>
+      
+      <!-- Vista previa de la foto capturada -->
+      <div *ngIf="fotoCapturada" class="ion-margin-top">
+        <img [src]="fotoCapturada" style="width: 100%; border-radius: 10px; max-height: 200px; object-fit: cover;">
+      </div>
+    </div>
+
+    <!-- Botón para publicar aviso -->
+    <ion-button expand="block" type="submit" [disabled]="avisoForm.invalid" class="ion-margin-top">
+      Publicar Aviso
+    </ion-button>
+  </form>
+</ion-content>
